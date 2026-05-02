@@ -11,7 +11,7 @@ export interface IPost {
   relevance_score: number; // Cálculo: score * 0.6 + answer_count * 0.4 [3]
   date: string;
 }
--------------------------------------------------------------
+
 xport type DraftType = 'newsletter' | 'linkedin' | 'twitter';
 export type DraftStatus = 'draft' | 'edited' | 'approved';
 
