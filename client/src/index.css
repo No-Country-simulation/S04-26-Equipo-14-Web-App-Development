@@ -15,6 +15,7 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
@@ -28,6 +29,28 @@
   @media (max-width: 1024px) {
     font-size: 16px;
   }
+}
+
+
+/* Review Panel */
+
+:root {
+  --primary: #c0c1ff;
+  --primary-container: #5c61d6;
+  --on-primary-container: #f3f1ff;
+  --background: #0b141c;
+  --on-background: #dae3ee;
+  --surface-container-lowest: #060f16;
+  --surface-container-low: #141c24;
+  --surface-container: #182028;
+  --surface-container-high: #222b33;
+  --surface-container-highest: #2d363e;
+  --surface-variant: #2d363e;
+  --on-surface: #dae3ee;
+  --on-surface-variant: #c7c5d5;
+  --outline-variant: #464653;
+  --tertiary: #6fdd78;
+  --error: #ffb4ab;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -77,20 +100,24 @@ h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>TalentCircle - Borradores</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Design tokens */
+        :root {
+            --primary:                  #c0c1ff;
+            --primary-container:        #5c61d6;
+            --on-primary-container:     #f3f1ff;
+            --background:               #0b141c;
+            --on-background:            #dae3ee;
+            --surface-container-lowest: #060f16;
+            --surface-container-low:    #141c24;
+            --surface-container:        #182028;
+            --surface-container-high:   #222b33;
+            --surface-container-highest:#2d363e;
+            --surface-variant:          #2d363e;
+            --on-surface:               #dae3ee;
+            --on-surface-variant:       #c7c5d5;
+            --outline-variant:          #464653;
+            --tertiary:                 #6fdd78;
+            --error:                    #ffb4ab;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-background);
+            font-family: Inter, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 400;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ── Sidebar ─────────────────────────────────── */
+        .sidebar {
+            background-color: var(--surface-container-low);
+            color: var(--primary);
+            width: 16rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--outline-variant);
+        }
+
+        .sidebar-inner {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 32px 0;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo {
+            padding: 0 24px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo-icon {
+            color: var(--primary);
+            font-size: 30px;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .sidebar-title {
+            font-size: 24px;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            font-weight: 600;
+            color: var(--on-surface);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            margin: 4px 8px;
+            color: var(--on-surface-variant);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 200ms, color 200ms;
+        }
+
+        .nav-link:hover {
+            background-color: var(--surface-variant);
+            color: var(--on-surface);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            transform: scale(0.98);
+        }
+
+        .user-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            margin: 4px 8px;
+            color: var(--on-surface-variant);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 200ms, color 200ms;
+        }
+
+        .user-link:hover {
+            background-color: var(--surface-variant);
+            color: var(--on-surface);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 9999px;
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .ml-auto { margin-left: auto; }
+
+        /* ── Main layout ──────────────────────────────── */
+        .main-wrapper {
+            margin-left: 16rem;
+            width: calc(100% - 16rem);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── Top bar ──────────────────────────────────── */
+        .top-bar {
+            background-color: var(--background);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 32px;
+        }
+
+        .top-bar-title {
+            font-size: 32px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            font-weight: 600;
+            color: var(--on-background);
+        }
+
+        .top-bar-subtitle {
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            margin-top: 4px;
+        }
+
+        .top-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 9999px;
+            border: none;
+            background: none;
+            color: var(--on-surface-variant);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--surface-container-high);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: var(--error);
+        }
+
+        /* ── Main content ─────────────────────────────── */
+        .main-content {
+            flex: 1;
+            padding: 0 32px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* ── Tabs ─────────────────────────────────────── */
+        .tabs-bar {
+            border-bottom: 1px solid var(--surface-container-highest);
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .tab-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 12px;
+            padding-left: 4px;
+            padding-right: 4px;
+            font-size: 14px;
+            font-family: Inter, sans-serif;
+            color: var(--on-surface-variant);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .tab-link:hover {
+            color: var(--on-background);
+        }
+
+        .tab-link.active {
+            color: var(--primary);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* ── Card ─────────────────────────────────────── */
+        .card {
+            background-color: var(--surface-container-low);
+            border: 1px solid var(--outline-variant);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--outline-variant);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--surface-container);
+        }
+
+        .card-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--on-background);
+        }
+
+        .badge {
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ── Table ────────────────────────────────────── */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--outline-variant);
+            background-color: var(--surface-container-highest);
+            color: var(--on-surface-variant);
+        }
+
+        th {
+            padding: 16px 24px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        th.text-right { text-align: right; }
+
+        tbody {
+            font-size: 14px;
+            color: var(--on-background);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--outline-variant);
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: var(--surface-container);
+        }
+
+        td {
+            padding: 16px 24px;
+        }
+
+        .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-edition {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .post-edition.secondary {
+            color: var(--on-surface-variant);
+        }
+
+        .post-title {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .post-meta {
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            margin-top: 4px;
+        }
+
+        .row-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* ── Buttons ──────────────────────────────────── */
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--outline-variant);
+            background: none;
+            font-family: Inter, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--surface-container-high);
+        }
+
+        .btn .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .btn-view    { color: var(--on-background); }
+        .btn-approve { color: var(--tertiary); }
+        .btn-delete  { color: var(--error); }
+    </style>
+</head>
+
+<body>
+    <!-- SideNavBar -->
+    <nav class="sidebar">
+        <div class="sidebar-inner">
+            <div>
+                <div class="sidebar-logo">
+                    <span class="material-symbols-outlined sidebar-logo-icon">generating_tokens</span>
+                    <div>
+                        <h1 class="sidebar-title">TalentCircle</h1>
+                    </div>
+                </div>
+                <div class="sidebar-nav">
+                    <a class="nav-link" href="#">
+                        <span class="material-symbols-outlined">database</span>Data Collection
+                    </a>
+                    <a class="nav-link active" href="#">
+                        <span class="material-symbols-outlined"
+                            style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">drafts</span>Review Panel
+                    </a>
+                    <a class="nav-link" href="#">
+                        <span class="material-symbols-outlined">publish</span>Publications
+                    </a>
+                    <a class="nav-link" href="#">
+                        <span class="material-symbols-outlined">settings</span>Configuration
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a class="user-link" href="#">
+                    <div class="user-avatar">AD</div>
+                    Admin
+                    <span class="material-symbols-outlined ml-auto">unfold_more</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <!-- TopAppBar -->
+        <header class="top-bar">
+            <div>
+                <h2 class="top-bar-title">Talent Ingestion</h2>
+                <p class="top-bar-subtitle">Revisa y aprueba el contenido generado para cada canal.</p>
+            </div>
+            <div class="top-bar-actions">
+                <button class="icon-btn">
+                    <span class="material-symbols-outlined">sync</span>
+                </button>
+                <button class="icon-btn">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="notification-dot"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Canvas -->
+        <main class="main-content">
+            <!-- Tabs Navigation -->
+            <div class="tabs-bar">
+                <nav aria-label="Tabs" class="tabs-nav">
+                    <a class="tab-link active" href="#">
+                        <span class="material-symbols-outlined"
+                            style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">mail</span>
+                        Newsletter
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="material-symbols-outlined">work</span>
+                        LinkedIn
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="material-symbols-outlined">chat</span>
+                        Twitter
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="material-symbols-outlined">code</span>
+                        Structured Export
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Content Area - Newsletter Tab Active -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <h3 class="card-header-title">Borradores Pendientes</h3>
+                            <span class="badge">3</span>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre del Tema</th>
+                                    <th class="text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td>
+                                        <div class="post-info">
+                                            <span class="post-edition">Edición Semanal #42</span>
+                                            <span class="post-title">Novedades en React 19 y mejores prácticas para concurrencia</span>
+                                            <span class="post-meta">Hace 2h • Basado en 5 fuentes</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row-actions">
+                                            <button class="btn btn-view">
+                                                <span class="material-symbols-outlined">edit</span>Ver
+                                            </button>
+                                            <button class="btn btn-approve">
+                                                <span class="material-symbols-outlined">check_circle</span>Aprobar
+                                            </button>
+                                            <button class="btn btn-delete">
+                                                <span class="material-symbols-outlined">delete</span>Eliminar
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>
+                                        <div class="post-info">
+                                            <span class="post-edition secondary">Backend Focus</span>
+                                            <span class="post-title">Escalando Node.js en microservicios: Patrones comunes</span>
+                                            <span class="post-meta">Hace 5h</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row-actions">
+                                            <button class="btn btn-view">
+                                                <span class="material-symbols-outlined">edit</span>Editar
+                                            </button>
+                                            <button class="btn btn-approve">
+                                                <span class="material-symbols-outlined">check_circle</span>Aprobar
+                                            </button>
+                                            <button class="btn btn-delete">
+                                                <span class="material-symbols-outlined">delete</span>Eliminar
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>
+                                        <div class="post-info">
+                                            <span class="post-edition secondary">CSS &amp; UI</span>
+                                            <span class="post-title">Dominando Grid y Flexbox en layouts complejos</span>
+                                            <span class="post-meta">Ayer</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row-actions">
+                                            <button class="btn btn-view">
+                                                <span class="material-symbols-outlined">edit</span>Editar
+                                            </button>
+                                            <button class="btn btn-approve">
+                                                <span class="material-symbols-outlined">check_circle</span>Aprobar
+                                            </button>
+                                            <button class="btn btn-delete">
+                                                <span class="material-symbols-outlined">delete</span>Eliminar
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

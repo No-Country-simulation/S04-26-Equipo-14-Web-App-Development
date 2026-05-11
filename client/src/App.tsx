@@ -1,11 +1,14 @@
 import { Dashboard } from './pages/Dashboard';
-    
-     function App() {
-       return (
-         <div className="App">
-           <Dashboard />
-         </div>
-       );
-    }
-   
-    export default App;
+import Review from './pages/Review';
+
+
+function App() {
+  return (
+    <div className="App">
+      {/* <Dashboard /> */}
+      <Review />
+    </div>
+  );
+}
+
+export default App;
