@@ -1,0 +1,36 @@
+       .searchContainer {
+       width: 100%;
+       max-width: 800px;
+       margin: 20px auto;
+       position: relative;
+     }
+    
+     .searchInput {
+      width: 100%;
+      padding: 12px 20px;
+      padding-left: 45px; 
+      font-size: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px; 
+      background-color: white;
+      color: #1a1a1a;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+   
+    .searchInput:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+      background-color: #fff;
+      color: #1a1a1a;
+    }
+   
+    
+    .searchIcon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+    }
