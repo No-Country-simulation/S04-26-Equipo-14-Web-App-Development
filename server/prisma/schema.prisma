@@ -114,6 +114,32 @@ model Publication {
   @@map("publications")
 }
 
+model ContentDraft {
+  id        String   @id @default(cuid())
+  channel   String // newsletter, linkedin, twitter
+  title     String?
+  content   String   @db.Text
+  status    String   @default("PENDING_REVIEW")
+  aiPrompt  String?  @db.Text
+  aiModel   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  revisions ContentRevision[]
+}
+
+model ContentRevision {
+  id           String   @id @default(cuid())
+  draftId      String
+  instruction  String   @db.Text
+  previousText String   @db.Text
+  revisedText  String   @db.Text
+  aiModel      String?
+  createdAt    DateTime @default(now())
+
+  draft ContentDraft @relation(fields: [draftId], references: [id], onDelete: Cascade)
+}
+
 enum PipelineStatus {
   pending
   processing

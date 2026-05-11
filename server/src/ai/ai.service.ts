@@ -72,4 +72,24 @@ export class AiService {
       drafts,
     };
   }
+  async rewriteDraft(content: string, instruction: string): Promise<string> {
+    const systemPrompt = `
+You are an expert technical content editor.
+
+Rewrite the provided content according to the editor instruction.
+
+Preserve the main ideas and improve the text as requested.
+Return only the rewritten content.
+`;
+
+    const userPrompt = `
+EDITOR INSTRUCTION:
+${instruction}
+
+ORIGINAL CONTENT:
+${content}
+`;
+
+    return this.groqProvider.generateText(systemPrompt, userPrompt);
+  }
 }
