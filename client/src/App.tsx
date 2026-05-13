@@ -1,11 +1,10 @@
-import { Dashboard } from './pages/Dashboard';
-    
-     function App() {
-       return (
-         <div className="App">
-           <Dashboard />
-         </div>
-       );
+import { Dashboard } from './pages/Dashboard' //
+   
+    function App() {
+      return (
+        <Dashboard /> //
+      )
     }
    
-    export default App;
+    export default App
+
