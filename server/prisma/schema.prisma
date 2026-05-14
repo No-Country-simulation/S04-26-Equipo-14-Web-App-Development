@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         ChannelTypes
+  formatType   FormatTypes   @map("format_type")
+  maxChars     Int           @map("max_chars")
+  drafts       Draft[]
+  publications Publication[]
+
+  @@map("channels")
+}
+
+model User {
+  id             String        @id @default(uuid()) @db.Uuid
+  name           String
+  email          String        @unique
+  password       String
+  username       String
+  userType       UserRole      @map("user_type")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  reviewedDrafts Draft[]       @relation("DraftEditor")
+  publications   Publication[]
+
+  @@map("users")
+}
+
+model PostsScrapped {
+  id              String          @id @default(uuid()) @db.Uuid
+  content         String
+  authorName      String          @map("author_name")
+  img             String?
+  date            String
+  createdAt       DateTime        @default(now()) @map("created_at")
+  likes           Int
+  comments        Json
+  sourceCommunity Communities     @map("source_community")
+  relevanceScore  Float           @default(0) @map("relevance_score")
+  selections      PostSelection[]
+
+  @@map("posts_scrapped")
+}
+
+model PipelineRun {
+  id              String          @id @default(uuid()) @db.Uuid
+  startedAt       DateTime        @default(now()) @map("started_at")
+  completedAt     DateTime?       @map("completed_at")
+  status          PipelineStatus
+  weekLabel       String          @unique @map("week_label")
+  modelUsed       String?         @map("model_used")
+  promptVersion   String?         @map("prompt_version")
+  inputTokens     Int?            @map("input_tokens")
+  outputTokens    Int?            @map("output_tokens")
+  processingError String?         @map("processing_error")
+  drafts          Draft[]
+  postSelections  PostSelection[]
+  publications    Publication[]
+
+  @@map("pipeline_runs")
+}
+
+model PostSelection {
+  id             String        @id @default(uuid()) @db.Uuid
+  pipelineRunId  String        @map("pipeline_run_id") @db.Uuid
+  postId         String        @map("post_id") @db.Uuid
+  relevanceScore Float         @map("relevance_score")
+  pipelineRun    PipelineRun   @relation(fields: [pipelineRunId], references: [id])
+  post           PostsScrapped @relation(fields: [postId], references: [id])
+
+  @@map("post_selections")
+}
+
+model Draft {
+  id            String       @id @default(uuid()) @db.Uuid
+  pipelineRunId String       @map("pipeline_run_id") @db.Uuid
+  channelId     String       @map("channel_id") @db.Uuid
+  img           String?
+  summary       String
+  editorId      String?      @map("editor") @db.Uuid
+  views         Int          @default(0)
+  editorNotes   String?      @map("editor_notes")
+  reviewedAt    DateTime?    @map("reviewed_at")
+  publishedAt   DateTime?    @map("published_at")
+  status        DraftStatus  @default(pending)
+  channel       Channel      @relation(fields: [channelId], references: [id])
+  editor        User?        @relation("DraftEditor", fields: [editorId], references: [id])
+  pipelineRun   PipelineRun  @relation(fields: [pipelineRunId], references: [id])
+  publications  Publication?
+
+  @@map("drafts")
+}
+
+model Publication {
+  id            String            @id @default(uuid()) @db.Uuid
+  draftId       String            @unique @map("draft_id") @db.Uuid
+  channelId     String            @map("channel_id") @db.Uuid
+  publishedById String            @map("published_by") @db.Uuid
+  pipelineRunId String            @map("pipeline_run_id") @db.Uuid
+  method        PublicationMethod
+  result        PublicationResult
+  publishedAt   DateTime?         @map("published_at")
+  channel       Channel           @relation(fields: [channelId], references: [id])
+  draft         Draft             @relation(fields: [draftId], references: [id])
+  pipelineRun   PipelineRun       @relation(fields: [pipelineRunId], references: [id])
+  publishedBy   User              @relation(fields: [publishedById], references: [id])
+
+  @@map("publications")
+}
+
+model ContentDraft {
+  id        String   @id @default(cuid())
+  channel   String // newsletter, linkedin, twitter
+  title     String?
+  content   String   @db.Text
+  status    String   @default("PENDING_REVIEW")
+  aiPrompt  String?  @db.Text
+  aiModel   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  revisions ContentRevision[]
+}
+
+model ContentRevision {
+  id           String   @id @default(cuid())
+  draftId      String
+  instruction  String   @db.Text
+  previousText String   @db.Text
+  revisedText  String   @db.Text
+  aiModel      String?
+  createdAt    DateTime @default(now())
+
+  draft ContentDraft @relation(fields: [draftId], references: [id], onDelete: Cascade)
+}
+
+enum PipelineStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+enum DraftStatus {
+  pending
+  approved
+  rejected
+  published
+}
+
+enum Communities {
+  stackoverflow
+}
+
+enum ChannelTypes {
+  newsletter
+  linkedin
+  twitter
+  internal
+}
+
+enum FormatTypes {
+  long
+  medium
+  short
+  xshort
+}
+
+enum UserRole {
+  editor
+  admin
+  viewer
+}
+
+enum PublicationMethod {
+  api
+  export
+  scheduled
+}
+
+enum PublicationResult {
+  success
+  failed
+  pending
+}
