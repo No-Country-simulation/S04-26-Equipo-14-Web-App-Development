@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Edit Draft - TalentCircle</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#00802b",
+                        "inverse-primary": "#4b50c5",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#c0c1ff",
+                        "primary": "#c0c1ff",
+                        "surface-bright": "#313a43",
+                        "outline": "#908f9f",
+                        "tertiary-fixed": "#8bfb91",
+                        "on-tertiary": "#00390e",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#2d363e",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "surface-container-low": "#141c24",
+                        "surface-container-high": "#222b33",
+                        "primary-fixed": "#e1e0ff",
+                        "tertiary": "#6fdd78",
+                        "surface-dim": "#0b141c",
+                        "on-surface": "#dae3ee",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "on-tertiary-container": "#cdffc8",
+                        "surface-container-lowest": "#060f16",
+                        "on-tertiary-fixed": "#002106",
+                        "on-primary-container": "#f3f1ff",
+                        "on-primary-fixed-variant": "#3235ac",
+                        "primary-container": "#5c61d6",
+                        "inverse-surface": "#dae3ee",
+                        "on-secondary-fixed": "#171c23",
+                        "on-tertiary-fixed-variant": "#005319",
+                        "on-background": "#dae3ee",
+                        "surface-container": "#182028",
+                        "secondary": "#c2c7d0",
+                        "secondary-fixed": "#dee2ec",
+                        "inverse-on-surface": "#29313a",
+                        "on-secondary-container": "#b1b5bf",
+                        "on-secondary": "#2c3138",
+                        "on-primary-fixed": "#04006d",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "background": "#0b141c",
+                        "tertiary-fixed-dim": "#6fdd78",
+                        "secondary-container": "#42474f",
+                        "on-surface-variant": "#c7c5d5",
+                        "on-primary": "#171796",
+                        "outline-variant": "#464653",
+                        "surface-variant": "#2d363e",
+                        "surface": "#0b141c",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin": "32px",
+                        "input-height": "40px",
+                        "gutter": "24px",
+                        "card-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "code": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ensuring minimal custom CSS, relying on Tailwind */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex">
+    <!-- SideNavBar -->
+    <nav
+        class="h-full w-64 fixed left-0 top-0 flex flex-col bg-surface-container-low border-r border-outline-variant z-50">
+        <div class="flex flex-col h-full py-margin justify-between">
+            <div>
+                <div class="px-6 mb-8">
+                    <h1 class="text-headline-md font-headline-md text-on-surface tracking-tight">TalentCircle</h1>
+                    <p class="font-label-md text-label-md text-on-surface-variant mt-1">Talent Ingestion</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg mx-2 my-1 transition-colors duration-200"
+                        href="#">
+                        <span class="material-symbols-outlined">database</span>
+                        <span class="font-body-md text-body-md">Data Collection</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg mx-2 my-1 transition-transform scale-[0.98]"
+                        href="#">
+                        <span class="material-symbols-outlined icon-fill">drafts</span>
+                        <span class="font-body-md text-body-md font-medium">Review Panel</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg mx-2 my-1 transition-colors duration-200"
+                    href="#">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="font-body-md text-body-md">Admin</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content Wrapper -->
+    <div class="ml-64 w-[calc(100%-16rem)] flex flex-col min-h-screen">
+        <!-- TopAppBar -->
+        <header
+            class="w-full sticky top-0 z-40 bg-background flex items-center justify-between px-margin py-gutter border-b border-surface-container-high">
+            <div class="flex items-center gap-4">
+                <h2 class="text-headline-md font-headline-md text-primary">Dashboard de Ingesta</h2>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Search could go here based on "search_bar": "on_left" if implemented, skipped for clarity in detail view -->
+                <div class="flex items-center gap-2">
+                    <button
+                        class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+                        <span class="material-symbols-outlined">sync</span>
+                    </button>
+                    <button
+                        class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                </div>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-highest rounded-lg transition-colors font-label-md text-label-md">
+                    Actualizar datos
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-surface-container-high border border-outline overflow-hidden flex items-center justify-center">
+                    <img alt="Admin User" class="w-full h-full object-cover"
+                        data-alt="A close-up portrait of a professional individual serving as an avatar in a dark-themed UI. The lighting is studio-quality with subtle rim lighting that separates the subject from a dark, blurry background. The overall tone is sleek, modern, and serious, fitting a high-performance data dashboard environment."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQgxH32NOxnuY87KnmEl_cu-qjE-Byq6VN7d4GyxobXcMMnphDTKo_8KZ384wc3Hnx6_Osr5yFSRh-JjXMuBmZU4lVZ1K18i1PcKDTXSXrzvwGY0FJyIf4jHFQ5jgoVong05DYgQ7KUC513da5fTlpzkUHXnwxz1pQYadNrrQn6lu3l7gcNVbYybBQ4q-iaNvLTr1M9U0x7IaBPioTJ9KZ0gyosSmT_agH2QuMoxBy4mZfnZXpY_vkvd1KKIvzltCRXnxIwlu1I5l">
+                </div>
+            </div>
+        </header>
+        <!-- Main Canvas -->
+        <main class="flex-1 p-margin flex flex-col">
+            <!-- Context & Back -->
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-wider"
+                    href="#">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Volver a Borradores
+                </a>
+            </div>
+            <!-- Sticky Header for Actions -->
+            <div
+                class="sticky top-20 z-30 bg-background/95 backdrop-blur py-4 flex items-center justify-between border-b border-surface-container mb-8">
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Editando: Campaña Ingenieros
+                        Senior</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                        Borrador Autoguardado hace 2 minutos
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button
+                        class="px-6 py-2.5 border border-outline-variant text-on-surface rounded-lg hover:bg-surface-variant transition-colors font-label-md text-label-md">
+                        Guardar Cambios
+                    </button>
+                    <button
+                        class="px-6 py-2.5 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors font-label-md text-label-md flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[18px]">check_circle</span>Aprobar</button><button
+                        class="px-6 py-2.5 bg-primary-container text-on-primary-container rounded-lg hover:brightness-110 transition-all font-label-md text-label-md shadow-lg shadow-primary-container/20 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[18px]">send</span>Publicar</button>
+                </div>
+            </div>
+            <!-- Editor Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+                <!-- Left Panel: Editor Canvas -->
+                <div class="lg:col-span-8 space-y-6">
+                    <div
+                        class="bg-surface-container-low border border-outline-variant rounded-xl p-card-padding shadow-sm shadow-black/20">
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="col-span-2">
+                                <label
+                                    class="block font-label-md text-label-md text-on-surface-variant mb-2 uppercase">Asunto
+                                    del Post</label>
+                                <input
+                                    class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                                    type="text" value="Nuevas oportunidades para Arquitectos de Software en Madrid">
+                            </div>
+                            <div class="col-span-1">
+                                <label
+                                    class="block font-label-md text-label-md text-on-surface-variant mb-2 uppercase">Nombre
+                                    del Tema</label>
+                                <input
+                                    class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                                    type="text" value="Tech Hub Expansion">
+                            </div>
+                            <div class="col-span-1">
+                                <label
+                                    class="block font-label-md text-label-md text-on-surface-variant mb-2 uppercase">Categoría</label>
+                                <div class="relative">
+                                    <select
+                                        class="w-full appearance-none bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                                        <option>Ingeniería y Tech</option>
+                                        <option>Data Science</option>
+                                        <option>Liderazgo</option>
+                                    </select>
+                                    <span
+                                        class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label
+                                    class="block font-label-md text-label-md text-on-surface-variant uppercase">Cuerpo
+                                    del Mensaje</label>
+                                <div
+                                    class="flex gap-2 bg-surface-container p-1 rounded-md border border-outline-variant">
+                                    <button class="p-1.5 text-on-surface hover:bg-surface-variant rounded"><span
+                                            class="material-symbols-outlined text-[18px]">format_bold</span></button>
+                                    <button class="p-1.5 text-on-surface hover:bg-surface-variant rounded"><span
+                                            class="material-symbols-outlined text-[18px]">format_italic</span></button>
+                                    <button class="p-1.5 text-on-surface hover:bg-surface-variant rounded"><span
+                                            class="material-symbols-outlined text-[18px]">link</span></button>
+                                    <button class="p-1.5 text-on-surface hover:bg-surface-variant rounded"><span
+                                            class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+                                </div>
+                            </div>
+                            <textarea
+                                class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface font-body-md leading-relaxed focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-y"
+                                rows="12">Estamos ampliando nuestro equipo de ingeniería en el nuevo Tech Hub de Madrid. Buscamos perfiles con experiencia en arquitecturas distribuidas, microservicios y despliegues en cloud (AWS/GCP).
+
+Si te apasiona construir sistemas escalables que impacten a millones de usuarios, este es el lugar. Ofrecemos un entorno de trabajo híbrido, presupuesto para formación continua y un paquete de compensación altamente competitivo.
+
+Requisitos clave:
+- 5+ años de experiencia en Backend (Go, Python o Java)
+- Experiencia demostrable diseñando APIs RESTful y GraphQL
+- Conocimiento profundo de bases de datos relacionales y NoSQL</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Panel: Metadata & AI Refinement -->
+                <div class="lg:col-span-4 space-y-6">
+                    <!-- AI Refinement Card -->
+                    <div
+                        class="bg-surface-container-low border border-primary/30 rounded-xl p-card-padding shadow-sm shadow-primary/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-inverse-primary">
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">magic_button</span>
+                            Refinamiento AI
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label
+                                    class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase">Tono
+                                    Sugerido</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-3 py-1 bg-primary/20 text-primary border border-primary/30 rounded-full font-label-md text-[11px] uppercase tracking-wider">Profesional</span>
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant border border-outline-variant rounded-full font-label-md text-[11px] uppercase tracking-wider cursor-pointer hover:bg-surface-variant">Casual</span>
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant border border-outline-variant rounded-full font-label-md text-[11px] uppercase tracking-wider cursor-pointer hover:bg-surface-variant">Urgente</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-surface rounded-lg border border-outline-variant">
+                                <p class="font-body-md text-body-md text-on-surface-variant mb-3">La IA sugiere
+                                    optimizar el llamado a la acción para aumentar la conversión en un 15%.</p>
+                                <button
+                                    class="w-full py-2 bg-surface-container-high border border-outline-variant text-primary rounded hover:bg-surface-variant transition-colors font-label-md text-label-md flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                                    Aplicar Optimización
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Metadata Card -->
+                    <div class="bg-surface-container-low border border-outline-variant rounded-xl p-card-padding">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-on-surface-variant">info</span>
+                            Metadatos del Borrador
+                        </h3>
+                        <ul class="space-y-4 font-body-md text-body-md text-on-surface">
+                            <li class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                                <span class="text-on-surface-variant">Recuento de palabras</span>
+                                <span class="font-code text-code text-on-surface">128</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                                <span class="text-on-surface-variant">Tiempo de lectura</span>
+                                <span class="font-code text-code text-on-surface">~ 1 min</span>
+                            </li>
+                            <li class="flex flex-col gap-2 pt-2">
+                                <span class="text-on-surface-variant">Fuentes de Datos (Ingesta)</span>
+                                <div class="flex gap-2">
+                                    <span
+                                        class="flex items-center gap-1 px-2 py-1 bg-surface-container border border-outline-variant rounded text-xs text-on-surface">
+                                        <span class="material-symbols-outlined text-[14px]">link</span> LinkedIn API
+                                    </span>
+                                    <span
+                                        class="flex items-center gap-1 px-2 py-1 bg-surface-container border border-outline-variant rounded text-xs text-on-surface">
+                                        <span class="material-symbols-outlined text-[14px]">database</span> CRM Interno
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+</body>
+
+</html>
