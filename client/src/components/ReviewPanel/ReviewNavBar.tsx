@@ -11,9 +11,6 @@ const ReviewNavBar = () => {
 
     const base = pathname.split("/").slice(0, 2).join("/");
 
-
-
-
     const tabs = [
 
         { path: `${base}/newsletter`, icon: "mail", label: "Newsletter" },
