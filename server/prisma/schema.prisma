@@ -34,13 +34,16 @@ model User {
 
 model PostsScrapped {
   id              String          @id @default(uuid()) @db.Uuid
+  title           String
   content         String
   authorName      String          @map("author_name")
   img             String?
-  date            String
+  postDate        DateTime
   createdAt       DateTime        @default(now()) @map("created_at")
   likes           Int
   comments        Json
+  answers         Json
+  tags            String[]
   sourceCommunity Communities     @map("source_community")
   relevanceScore  Float           @default(0) @map("relevance_score")
   selections      PostSelection[]
