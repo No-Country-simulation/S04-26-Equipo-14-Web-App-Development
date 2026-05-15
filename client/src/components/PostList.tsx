@@ -1,32 +1,32 @@
 import { PostCard } from './PostCard';
-     import type { Post } from '../types/Post';
-    
-   interface PostListProps {
-       posts: Post[];
-     }
-    
-     export const PostList = ({ posts }: PostListProps) => {
-       if (posts.length === 0) {
-        return (
-          <div className="flex flex-col items-center justify-center py-12 text-on-surface-variant">
-            <span className="material-symbols-outlined text-5xl mb-3 opacity-20">search_off</span>
-            <p className="font-medium">No se encontraron posts que coincidan con tu búsqueda.</p>
-          </div>
-        );
-      }
-   
-      return (
-        <div className="grid grid-cols-1 gap-4">
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              votes={post.votes}
-              replies={post.replies}
-              relevanceScore={post.relevanceScore}
-              author={post.author}
-            />
-          ))}
-        </div>
-      );
-    };
+import type { Post } from '../types/Post';
+
+interface PostListProps {
+  posts: Post[];
+}
+
+export const PostList = ({ posts }: PostListProps) => {
+  if (posts.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-on-surface-variant">
+        <span className="material-symbols-outlined text-5xl mb-3 opacity-20">search_off</span>
+        <p className="font-medium">No se encontraron posts que coincidan con tu búsqueda.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {posts.map((post) => (
+        <PostCard
+          key={post.id}
+          title={post.title}
+          votes={post.votes}
+          replies={post.replies}
+          relevanceScore={post.relevanceScore}
+          author={post.author}
+        />
+      ))}
+    </div>
+  );
+};

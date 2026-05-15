@@ -1,16 +1,17 @@
 
-import { NavLink, type NavLinkProps } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
+
   const menuItems = [
-    { icon: 'database', label: 'Data Collection', path: "/datacollection", active: true }, //saque active: bool
-    { icon: 'drafts', label: 'Review Panel', path: "/reviewpanel",  active: true },
-    { icon: 'publish', label: 'Publications', path: "/publications", active: true  },
-    { icon: 'settings', label: 'Configuration', path: "/configuration", active: true  },
+    { icon: 'database', label: 'Data Collection', path: "/datacollection" },
+    { icon: 'drafts', label: 'Review Panel', path: "/reviewpanel" },
+    { icon: 'publish', label: 'Publications', path: "/publications" },
+    { icon: 'settings', label: 'Configuration', path: "/configuration" },
   ];
 
-  const activeClass = "bg-primary-container text-on-primary-container scale-[0.98]"
-  const inactiveClass = "text-on-surface-variant hover:bg-surface-variant hover:text-on-surface"
+  const activeClass = `bg-primary-container text-on-primary-container scale-[0.98]`
+  const inactiveClass = `text-on-surface-variant hover:bg-surface-variant hover:text-on-surface`
 
 
   return (
@@ -31,22 +32,31 @@ const Sidebar = () => {
           </div>
 
           {/* Navigation Items */}
-          <div className="flex flex-col gap-1 px-2">
+          <div className="flex flex-col gap-1 px-2 bg-blue-500">
             {menuItems.map((item) => (
 
 
               <NavLink
                 key={item.label}
                 to={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg
-      transition-all duration-200 ${({ isActive }: { isActive: boolean; isPending: boolean; isTransitioning: boolean }) =>
-                    isActive ? activeClass : inactiveClass}`}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-lg
+     transition-all duration-200
+     ${isActive ? activeClass : inactiveClass}`
+                }
               >
-                <span className={`material-symbols-outlined ${ item.active ?
-                  'icon-filled' : ''}`}>
-                  {item.icon}
-                </span>
-                <span className="font-medium">{item.label}</span>
+                {({ isActive }) => (
+                  <>
+                    <span
+                      className={`material-symbols-outlined ${isActive ? "icon-filled" : ""
+                        }`}
+                    >
+                      {item.icon}
+                    </span>
+
+                    <span className="font-medium">{item.label}</span>
+                  </>
+                )}
               </NavLink>
             ))}
           </div>

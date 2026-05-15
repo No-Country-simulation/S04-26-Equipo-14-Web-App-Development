@@ -24,10 +24,10 @@ const ReviewPanel = () => {
                     <ReviewNavBar />
 
                     <Routes>
-                        <Route path="/newsletter" element={<NewsletterBoard />} />
-                        <Route path="/linkedin" element={<LinkedinBoard />} />
-                        <Route path="/xtwitter" element={<TwitterBoard />} />
-                        <Route path="/structured" element={<StrucExportBoard />} />
+                        <Route path="newsletter" element={<NewsletterBoard />} />
+                        <Route path="linkedin" element={<LinkedinBoard />} />
+                        <Route path="xtwitter" element={<TwitterBoard />} />
+                        <Route path="structured" element={<StrucExportBoard />} />
                     </Routes>
                 </main>
             </div>
