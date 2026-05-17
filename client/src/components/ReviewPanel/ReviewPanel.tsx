@@ -19,15 +19,16 @@ const ReviewPanel = () => {
             <div className="ml-64 w-[calc(100%-16rem)] flex flex-col min-h-screen">
 
                 <ReviewHeader handleSync={handleSync} />
+                
                 <main className="flex-1 px-margin pb-margin flex flex-col gap-8">
 
                     <ReviewNavBar />
 
                     <Routes>
-                        <Route path="newsletter" element={<NewsletterBoard />} />
+                        <Route path="newsletter/*" element={<NewsletterBoard />} />
                         <Route path="linkedin" element={<LinkedinBoard />} />
                         <Route path="xtwitter" element={<TwitterBoard />} />
-                        <Route path="structured" element={<StrucExportBoard />} />
+                        <Route path="structured" element={<StrucExportBoard />} /> 
                     </Routes>
                 </main>
             </div>
