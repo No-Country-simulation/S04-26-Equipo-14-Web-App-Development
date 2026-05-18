@@ -1,21 +1,13 @@
 // import styles from "./ReviewPanel.module.css"
 import { Link } from "react-router-dom";
+import { Draft as DraftType } from "../EditPanel/TypeDraft";
 
-type Draft = {
-    id: string;
-    category: string;
-    title: string;
-    meta: string;
-};
 
 type DraftItemProps = {
-    draft: Draft;
+    draft: DraftType;
 };
 
-
-
 const Draft = ({ draft }: DraftItemProps) => {
-
 
     // const aproved = "";
     // const pendinToAprove= "";
@@ -33,7 +25,7 @@ const Draft = ({ draft }: DraftItemProps) => {
                     </span>
 
                     <span className="text-sm text-on-surface-variant mt-1">
-                        {draft.meta}
+                        {draft.content}
                     </span>
                 </div>
             </div>

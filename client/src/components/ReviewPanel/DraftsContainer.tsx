@@ -1,36 +1,15 @@
+
 import Draft from "./Draft"
+import { Draft as DraftType } from "../EditPanel/TypeDraft"
 
-const DraftsContainer = () => {
 
 
-  type Draft = {
-    id: string;
-    category: string;
-    title: string;
-    meta: string;
-  };
+type DraftsContainerProps = {
 
-  const drafts: Draft[] = [
-    {
-      id: "1",
-      category: "Edición Semanal #46",
-      title: "Novedades en React 19 y mejores prácticas para concurrencia",
-      meta: "Hace 2h • Basado en 5 fuentes",
-    },
-    {
-      id: "2",
-      category: "Backend Focus",
-      title: "Escalando Node.js en microservicios: Patrones comunes",
-      meta: "Hace 5h",
-    },
-    {
-      id: "3",
-      category: "CSS & UI",
-      title: "Dominando Grid y Flexbox en layouts complejos",
-      meta: "Ayer",
-    },
-  ];
+  drafts: DraftType[];
+}
 
+const DraftsContainer = ({ drafts }: DraftsContainerProps) => {
 
   return (
 
@@ -56,9 +35,14 @@ const DraftsContainer = () => {
         </div>
 
         <div className="col-span-2 grid grid-cols-subgrid text-body-md text-on-background divide-y divide-outline-variant">
+
           {drafts.map((draft) => (
+
             <Draft key={draft.id} draft={draft} />
+
           ))}
+
+
         </div>
       </div>
     </section>

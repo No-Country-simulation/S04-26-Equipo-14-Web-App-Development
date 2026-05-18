@@ -1,25 +1,50 @@
 import EditPanelTopbar from "./EditPanelTopbar"
-import EditPanelNav from "./EditPanelNav"
 import DraftEditForm from "./DraftEditForm"
+import DraftMetadata from "./DraftMetadata"
+import { useParams } from "react-router-dom";
 
-const EditPanelContainer = () => {
+type Draft = {
+    id: string;
+    category: string;
+    title: string;
+    meta: string;
+    content: string;
+};
+
+type EditPanelProps = {
+    drafts: Draft[];
+}
+
+const EditPanelContainer = ({ drafts }: EditPanelProps) => {
+
+    const { draftId } = useParams();
+
+    const selectedDraft = drafts.find(draft => draft.id === draftId)
+
+    if (!selectedDraft) {
+        return <p>Draft no encontrado</p>
+    }
+
+
+
     return (
         <>
 
-            <div className="ml-64 w-[calc(100%-16rem)] flex flex-col min-h-screen">
+            <div className="fixed inset-0 flex items-center justify-center p-8">
 
-                <EditPanelTopbar />
+                <div className="bg-background w-full max-w-6xl max-h-full overflow-y-auto rounded-xl shadow-2xl border border-outline-variant flex flex-col">
 
-                <main className="flex-1 p-margin flex flex-col">
+                    <EditPanelTopbar />
 
-                    <EditPanelNav />
+                    <div className="p-8 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 
-                    <DraftEditForm />
+                        <DraftEditForm key={selectedDraft.id} draft={selectedDraft} />
 
-                </main>
+                        <DraftMetadata draft={selectedDraft} />
 
+                    </div>
+                </div>
             </div>
-
         </>
     )
 }
