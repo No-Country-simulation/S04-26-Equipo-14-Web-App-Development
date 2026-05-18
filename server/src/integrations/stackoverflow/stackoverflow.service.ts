@@ -67,7 +67,7 @@ export class StackoverflowService {
       sort: 'votes',
       site: 'stackoverflow',
       filter: 'withbody',
-      pagesize: 20,
+      pagesize: 10,
     };
 
     try {
@@ -117,7 +117,7 @@ export class StackoverflowService {
       sort: 'votes',
       site: 'stackoverflow',
       filter: 'withbody',
-      pagesize: 100,
+      pagesize: 50,
     };
 
     try {
@@ -142,7 +142,7 @@ export class StackoverflowService {
       sort: 'creation', // Es el sort por defecto para comentarios [4]
       site: 'stackoverflow',
       filter: 'withbody',
-      pagesize: 100,
+      pagesize: 50,
     };
     try {
       const response_q = await firstValueFrom(
