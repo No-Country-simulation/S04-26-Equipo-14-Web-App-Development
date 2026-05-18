@@ -1,9 +1,18 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   app.enableCors();
   app.setGlobalPrefix('/api');
@@ -15,20 +24,18 @@ async function bootstrap() {
 
 bootstrap();
 
-/*
-para pruebas manuales de la integración, se puede usar este código para ejecutar el pipeline directamente al iniciar el servidor:
-import 'dotenv/config';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { PipelineService } from './pipeline/pipeline.service';
+// para pruebas manuales de la integración, se puede usar este código para ejecutar el pipeline directamente al iniciar el servidor:
+// import 'dotenv/config';
+// import { NestFactory } from '@nestjs/core';
+// import { AppModule } from './app.module';
+// import { PipelineService } from './pipeline/pipeline.service';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+// async function bootstrap() {
+//   const app = await NestFactory.create(AppModule);
 
-  const pipelineService = app.get(PipelineService);
-  await pipelineService.executeWeeklyPipeline();
+//   const pipelineService = app.get(PipelineService);
+//   await pipelineService.executeWeeklyPipeline();
 
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
-*/
+//   await app.listen(process.env.PORT ?? 3000);
+// }
+// bootstrap();
