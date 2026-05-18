@@ -41,16 +41,11 @@ const Draft = ({ draft }: DraftItemProps) => {
             <div className="px-6 py-4 flex items-center justify-end gap-3">
 
 
-                <Link to="editing" className="px-3 py-1.5 rounded-lg text-on-background border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
+                <Link to={`editing/${draft.id}`} className="px-3 py-1.5 rounded-lg text-on-background border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
 
                     <span className="material-symbols-outlined text-[16px]">visibility</span>
                     Ver
                 </Link>
-                
-                {/* <button className="px-3 py-1.5 rounded-lg text-on-background border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[16px]">visibility</span>
-                    Ver
-                </button> */}
 
                 <button className="px-3 py-1.5 rounded-lg text-tertiary border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
 
