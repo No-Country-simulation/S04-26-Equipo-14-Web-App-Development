@@ -51,9 +51,9 @@ export const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-background">
       {/* 1. Barra Lateral */}
-      <Sidebar />
+     
 
-      <main className="ml-64 flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col">
         {/* 2. Barra Superior */}
         <TopBar />
 
