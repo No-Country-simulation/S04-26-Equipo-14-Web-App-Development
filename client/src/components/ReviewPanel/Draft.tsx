@@ -1,24 +1,17 @@
 // import styles from "./ReviewPanel.module.css"
+import { Link } from "react-router-dom";
+import { Draft as DraftType } from "../EditPanel/TypeDraft";
 
-type Draft = {
-    id: string;
-    category: string;
-    title: string;
-    meta: string;
-};
 
 type DraftItemProps = {
-    draft: Draft;
+    draft: DraftType;
 };
-
-
 
 const Draft = ({ draft }: DraftItemProps) => {
 
+    // const aproved = "";
+    // const pendinToAprove= "";
 
-    const aproved = "";
-    const pendinToAprove= "";
-    
     return (
         <article className="col-span-2 grid grid-cols-subgrid hover:bg-surface-container transition-colors">
             <div className="px-6 py-4">
@@ -32,16 +25,19 @@ const Draft = ({ draft }: DraftItemProps) => {
                     </span>
 
                     <span className="text-sm text-on-surface-variant mt-1">
-                        {draft.meta}
+                        {draft.content}
                     </span>
                 </div>
             </div>
 
             <div className="px-6 py-4 flex items-center justify-end gap-3">
-                <button className="px-3 py-1.5 rounded-lg text-on-background border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[16px]">edit</span>
+
+
+                <Link to={`editing/${draft.id}`} className="px-3 py-1.5 rounded-lg text-on-background border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
+
+                    <span className="material-symbols-outlined text-[16px]">visibility</span>
                     Ver
-                </button>
+                </Link>
 
                 <button className="px-3 py-1.5 rounded-lg text-tertiary border border-outline-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1">
 

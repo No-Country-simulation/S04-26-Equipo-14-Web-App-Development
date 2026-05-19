@@ -32,7 +32,7 @@ const Sidebar = () => {
           </div>
 
           {/* Navigation Items */}
-          <div className="flex flex-col gap-1 px-2 bg-blue-500">
+          <div className="flex flex-col gap-1 px-2">
             {menuItems.map((item) => (
 
 
