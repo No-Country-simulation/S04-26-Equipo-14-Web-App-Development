@@ -8,7 +8,6 @@ import TopBar from '../components/TopBar';
 import type { Post } from '../types/Post';
 
 export const Dashboard = () => {
-
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -50,12 +49,10 @@ export const Dashboard = () => {
   );
 
   return (
-    
-    <div className="flex min-h-screen bg-background">
-      {/* 1. Barra Lateral */}
-     
 
-      <main className="flex-1 flex flex-col">
+    <div className="flex min-h-screen bg-background">
+
+      <main className="ml-64 flex-1 flex flex-col">
         {/* 2. Barra Superior */}
         <TopBar />
 

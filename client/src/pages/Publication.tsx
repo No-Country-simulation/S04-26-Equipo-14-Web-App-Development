@@ -35,6 +35,7 @@ Post profesional generado para compartir aprendizajes y tendencias.
     };
 
     return (
+    
         <main className={styles.container}>
             <header className={styles.header}>
                 <h1>Publication</h1>
