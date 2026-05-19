@@ -7,5 +7,6 @@ import { StackoverflowModule } from 'src/integrations/stackoverflow/stackoverflo
   imports: [StackoverflowModule],
   controllers: [PostsController],
   providers: [PostsService],
+  exports: [PostsService],
 })
 export class PostsModule {}

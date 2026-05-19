@@ -1,14 +1,15 @@
+import { JsonValue } from '@prisma/client/runtime/library';
+
 export interface CommunityActivity {
   id: string;
   title?: string;
   content: string;
-  answers?: any[];
-  comments?: any[];
+  answers?: JsonValue | null;
+  comments?: JsonValue | null;
   tags?: string[];
   authorName: string;
   sourceCommunity: string;
   likes: number;
-  commentsCount: number;
   relevanceScore: number;
-  post_date: Date;
+  postDate: Date;
 }

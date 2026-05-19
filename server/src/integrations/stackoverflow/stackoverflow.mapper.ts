@@ -19,9 +19,8 @@ export class StackoverflowMapper {
       authorName: raw.owner?.display_name ?? 'Unknown',
       sourceCommunity: 'stackoverflow',
       likes: votes,
-      commentsCount: answers_count,
       relevanceScore,
-      post_date: new Date(raw.creation_date * 1000), //cambio de nombre
+      postDate: new Date(raw.creation_date * 1000), //cambio de nombre
     };
   }
 }
