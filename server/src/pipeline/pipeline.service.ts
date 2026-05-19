@@ -3,6 +3,7 @@ import { StackoverflowService } from '../integrations/stackoverflow/stackoverflo
 import { AiService } from '../ai/ai.service';
 import { DraftsService } from '../drafts/drafts.service';
 import { PipelineRunsService } from '../pipeline/pipeline-runs.service';
+import { LinkedinService } from '../integrations/linkedin/linkedin.service';
 
 @Injectable()
 export class PipelineService {
@@ -10,6 +11,7 @@ export class PipelineService {
 
   constructor(
     private readonly stackoverflowService: StackoverflowService,
+    private readonly linkedinService: LinkedinService,
     private readonly aiService: AiService,
     private readonly draftsService: DraftsService,
     private readonly pipelineRunsService: PipelineRunsService,
@@ -18,9 +20,18 @@ export class PipelineService {
   async executeWeeklyPipeline(): Promise<void> {
     this.logger.log('Starting weekly content pipeline...');
 
-    // 1. Obtener posts relevantes de Stack Overflow
-    const posts = await this.stackoverflowService.fetchWeeklyTopPosts();
-    this.logger.log(`Posts fetched: ${posts.length}`);
+    // 1. Obtener posts de Stack Overflow y LinkedIn
+    const stackoverflowPosts =
+      await this.stackoverflowService.fetchWeeklyTopPosts();
+
+    const linkedinPosts = await this.linkedinService.fetchWeeklyTopPosts();
+
+    // Combinar todas las fuentes
+    const posts = [...stackoverflowPosts, ...linkedinPosts];
+
+    this.logger.log(
+      `Posts fetched: ${posts.length} (${stackoverflowPosts.length} from Stack Overflow, ${linkedinPosts.length} from LinkedIn)`,
+    );
 
     if (!posts.length) {
       this.logger.warn('No posts found. Pipeline aborted.');
