@@ -67,7 +67,7 @@ export class StackoverflowService {
       sort: 'votes',
       site: 'stackoverflow',
       filter: 'withbody',
-      pagesize: 10,
+      pagesize: 40,
     };
 
     try {

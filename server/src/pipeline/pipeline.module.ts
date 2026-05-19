@@ -5,10 +5,13 @@ import { AiModule } from '../ai/ai.module';
 import { DraftsModule } from '../drafts/drafts.module';
 import { PipelineRunsService } from './pipeline-runs.service';
 import { PrismaModule } from '../prisma/prisma.module';
+import { PipelineController } from './pipeline.controller';
+import { PostsModule } from 'src/posts/posts.module';
 
 @Module({
-  imports: [StackoverflowModule, AiModule, DraftsModule, PrismaModule],
+  imports: [StackoverflowModule, PostsModule, AiModule, DraftsModule, PrismaModule],
   providers: [PipelineService, PipelineRunsService],
   exports: [PipelineService, PipelineRunsService],
+  controllers: [PipelineController],
 })
 export class PipelineModule {}
