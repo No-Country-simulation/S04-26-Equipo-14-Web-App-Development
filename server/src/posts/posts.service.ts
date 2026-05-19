@@ -35,7 +35,7 @@ export class PostsService {
         content: post.content,
         authorName: post.authorName,
         relevanceScore: post.relevanceScore,
-        postDate: post.post_date,
+        postDate: post.post_date.toISOString(),
         likes: post.likes,
         comments: post.comments || [],
         answers: post.answers || [],
