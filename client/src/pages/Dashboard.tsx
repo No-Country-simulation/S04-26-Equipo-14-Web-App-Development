@@ -3,11 +3,12 @@ import { postService } from '../services/postService';
 import { PostList } from '../components/PostList';
 import { SearchBar } from '../components/SearchBar';
 import { DashboardStats } from '../components/DashboardStats';
-import Sidebar from '../components/Sidebar';
+// import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
 import type { Post } from '../types/Post';
 
 export const Dashboard = () => {
+
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -49,6 +50,7 @@ export const Dashboard = () => {
   );
 
   return (
+    
     <div className="flex min-h-screen bg-background">
       {/* 1. Barra Lateral */}
      
