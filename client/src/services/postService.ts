@@ -1,6 +1,8 @@
      import { MOCK_POSTS } from '../mocks/postMocks';
-     import type { Post } from '../types/Post';
-    
+     import type { Post } from '../types/Post.types';
+     
+  
+
     
      export const postService = {
    

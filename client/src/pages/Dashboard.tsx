@@ -5,7 +5,7 @@ import { SearchBar } from '../components/SearchBar';
 import { DashboardStats } from '../components/DashboardStats';
 // import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
-import type { Post } from '../types/Post';
+import type { Post } from '../types/Post.types';
 
 export const Dashboard = () => {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
