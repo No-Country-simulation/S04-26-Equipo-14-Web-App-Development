@@ -63,8 +63,8 @@ export class DraftsService {
     pipelineRunId: string,
     drafts: DraftResult[],
   ): Promise<void> {
+    await this.prisma.draft.deleteMany();
     const channelNames = [...new Set(drafts.map((d) => d.channel))];
-    await this.prisma.channel.deleteMany();
     const channels = await this.prisma.channel.findMany({
       where: {
         name: {
@@ -96,6 +96,7 @@ export class DraftsService {
         pipelineRunId,
         channelId,
         summary: draft.summary,
+        title: draft.titulo,
       };
     });
 
