@@ -21,50 +21,93 @@ export class PipelineService {
 
   async executeWeeklyPipeline(): Promise<void> {
     this.logger.log('Starting weekly content pipeline...');
-    
-    // 1. Obtener posts de Stack Overflow y LinkedIn
+
+    // 1. Obtener posts de Stack Overflow
     let stackoverflowPosts =
       await this.stackoverflowService.fetchWeeklyTopPosts();
+
+    // Guardar y recalcular relevancia
     await this.postsService.savePosts(stackoverflowPosts);
+
+    // Recuperar los 5 posts más relevantes
     stackoverflowPosts = await this.postsService.getTopPosts(5);
+
+    // 2. Obtener posts de LinkedIn
     const linkedinPosts = await this.linkedinService.fetchWeeklyTopPosts();
 
-    // Combinar todas las fuentes
-    const posts = [...stackoverflowPosts, ...linkedinPosts];
-
     this.logger.log(
-      `Posts fetched: ${posts.length} (${stackoverflowPosts.length} from Stack Overflow, ${linkedinPosts.length} from LinkedIn)`,
+      `Posts fetched: ${stackoverflowPosts.length} from Stack Overflow, ${linkedinPosts.length} from LinkedIn`,
     );
 
-    if (!posts.length) {
+    // Validar que al menos exista contenido en alguna fuente
+    if (!stackoverflowPosts.length && !linkedinPosts.length) {
       this.logger.warn('No posts found. Pipeline aborted.');
       return;
     }
 
-    // 2. Crear registro de ejecución del pipeline
+    // 3. Crear registro de ejecución del pipeline
     const weekLabel = this.getCurrentWeekLabel();
 
     const pipelineRun =
       await this.pipelineRunsService.createPendingRun(weekLabel);
 
     try {
-      // 3. Analizar posts y generar drafts
-      const { analysis, drafts } =
-        await this.aiService.analyzeAndGenerate(posts);
+      // ==========================================================
+      // PROCESAR STACK OVERFLOW
+      // ==========================================================
+      if (stackoverflowPosts.length) {
+        this.logger.log('Generating drafts from Stack Overflow posts...');
 
-      this.logger.log(`Analysis generated: ${analysis.title}`);
+        const { analysis, drafts } =
+          await this.aiService.analyzeAndGenerate(stackoverflowPosts);
 
-      // 4. Guardar drafts scraped en base de datos
-      await this.draftsService.saveDrafts(pipelineRun.id, drafts);
+        this.logger.log(`Stack Overflow analysis generated: ${analysis.title}`);
 
-      // 5. Marcar ejecución como completada
+        // Agregar sourceCommunity a cada draft
+        const draftsWithSource = drafts.map((draft) => ({
+          ...draft,
+          sourceCommunity: 'stackoverflow',
+        }));
+
+        // Guardar drafts
+        await this.draftsService.saveDrafts(pipelineRun.id, draftsWithSource);
+
+        this.logger.log(
+          `Saved ${draftsWithSource.length} Stack Overflow drafts.`,
+        );
+      }
+
+      // ==========================================================
+      // PROCESAR LINKEDIN
+      // ==========================================================
+      if (linkedinPosts.length) {
+        this.logger.log('Generating drafts from LinkedIn posts...');
+
+        const { analysis, drafts } =
+          await this.aiService.analyzeAndGenerate(linkedinPosts);
+
+        this.logger.log(`LinkedIn analysis generated: ${analysis.title}`);
+
+        // Agregar sourceCommunity a cada draft
+        const draftsWithSource = drafts.map((draft) => ({
+          ...draft,
+          sourceCommunity: 'linkedin',
+        }));
+
+        // Guardar drafts
+        await this.draftsService.saveDrafts(pipelineRun.id, draftsWithSource);
+
+        this.logger.log(`Saved ${draftsWithSource.length} LinkedIn drafts.`);
+      }
+
+      // 4. Marcar ejecución como completada
       await this.pipelineRunsService.markAsCompleted(pipelineRun.id, 'groq');
 
       this.logger.log('Weekly pipeline completed successfully.');
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';
 
-      // 6. Marcar ejecución como fallida
+      // 5. Marcar ejecución como fallida
       await this.pipelineRunsService.markAsFailed(pipelineRun.id, message);
 
       this.logger.error('Pipeline execution failed.', message);

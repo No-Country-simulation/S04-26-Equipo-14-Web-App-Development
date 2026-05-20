@@ -4,7 +4,10 @@ import { GroqProvider } from './provaiders/groq.provider';
 
 import { CommunityActivity } from './interfaces/community-activity.interface';
 import { AiAnalysisResult } from './interfaces/ai-analysis-result.interface';
-import { DraftResult, GeneratedDraft } from './interfaces/draft-result.interface';
+import {
+  DraftResult,
+  GeneratedDraft,
+} from './interfaces/draft-result.interface';
 
 import { PromptBuilder } from './utils/prompt-builder';
 
@@ -78,6 +81,7 @@ export class AiService {
       drafts,
     };
   }
+
   async rewriteDraft(content: string, instruction: string): Promise<string> {
     const systemPrompt = `
 You are an expert technical content editor.
