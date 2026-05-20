@@ -1,11 +1,16 @@
 import { PostCard } from './PostCard';
-import type { Post } from '../types/Post.types';
+// import type { Post } from '../types/Post.types';
+import type { PostsDashboard } from '../types/Post.types';
 
 interface PostListProps {
-  posts: Post[];
+
+  posts: PostsDashboard[];
 }
 
 export const PostList = ({ posts }: PostListProps) => {
+
+  console.log("aca es lists", posts);
+
   if (posts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-on-surface-variant">
@@ -21,8 +26,8 @@ export const PostList = ({ posts }: PostListProps) => {
         <PostCard
           key={post.id}
           title={post.title}
-          votes={post.votes}
-          replies={post.replies}
+          votes={post.likes}
+          replies={post.replies.length}
           relevanceScore={post.relevanceScore}
           author={post.author}
         />

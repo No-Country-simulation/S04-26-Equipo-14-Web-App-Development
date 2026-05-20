@@ -1,21 +1,23 @@
 
-import { PostsDashboard } from "../types/Post.types";
+import { PostScrapped } from "../types/Post.types";
 
-
-const DB_URL = import.meta.env.VITE_DATABASE_URL;
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
-export async function getPosts(): Promise<PostsDashboard[]> {
-
-    const response = await fetch(`${API_URL}/posts/scrapped`);
+// console.log("esto es apiurl", API_URL);
 
 
-    if(!response.ok) {
-        throw new Error("Error al buscas los posteos")
+
+export async function getPosts(): Promise<PostScrapped[]> {
+
+    const response = await fetch(`${API_URL}/scrapped`);
+
+    if (!response.ok) {
+        throw new Error("Error al buscar los posteos")
     }
 
-    return response.json();
+    return response.json()
 
 }
+
+

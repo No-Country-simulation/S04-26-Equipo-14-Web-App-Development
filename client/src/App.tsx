@@ -8,8 +8,6 @@ import Publication from './pages/Publication';
 
 function App() {
 
-
-
   return (
     <div className="App">
 

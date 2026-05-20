@@ -32,7 +32,7 @@ export interface PostsDashboard {
    id: string
    title: string
    author?: string
-   likes: string
+   likes: number
    replies: []
    relevanceScore: number
    
