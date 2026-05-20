@@ -103,6 +103,22 @@ export class DraftsService {
     await this.prisma.draft.createMany({
       data,
     });
+
+    // Crear registro complementario para soportar revisiones con IA
+    const contentDraftData = drafts.map((draft) => {
+      return {
+        channel: draft.channel,
+        title: draft.titulo,
+        content: draft.summary,
+        status: 'PENDING_REVIEW',
+        aiPrompt: 'Generated automatically by weekly pipeline',
+        aiModel: 'groq',
+      };
+    });
+
+    await this.prisma.contentDraft.createMany({
+      data: contentDraftData,
+    });
   }
 
   async getChannelIdByName(channelName: ChannelTypes): Promise<string> {
