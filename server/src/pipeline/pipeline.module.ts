@@ -7,6 +7,7 @@ import { PipelineRunsService } from './pipeline-runs.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { LinkedinModule } from '../integrations/linkedin/linkedin.module';
 import { PostsModule } from 'src/posts/posts.module';
+import { PipelineController } from './pipeline.controller';
 
 @Module({
   imports: [

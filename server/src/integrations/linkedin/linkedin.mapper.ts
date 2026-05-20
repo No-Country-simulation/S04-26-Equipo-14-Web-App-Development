@@ -10,7 +10,7 @@ export class LinkedinMapper {
       content: post.content || '',
       authorName: post.authorName || 'Unknown Author',
       relevanceScore: post.relevanceScore || 0,
-      post_date: post.post_date ? new Date(post.post_date) : new Date(),
+      postDate: post.post_date ? new Date(post.postDate) : new Date(),
       likes: post.likes || 0,
       comments: post.comments || [],
       commentsCount: post.comments?.length || 0,

@@ -23,9 +23,10 @@ export class PipelineService {
     this.logger.log('Starting weekly content pipeline...');
     
     // 1. Obtener posts de Stack Overflow y LinkedIn
-    let posts = await this.stackoverflowService.fetchWeeklyTopPosts();
-    await this.postsService.savePosts(posts);
-    posts = await this.postsService.getTopPosts(5);
+    let stackoverflowPosts =
+      await this.stackoverflowService.fetchWeeklyTopPosts();
+    await this.postsService.savePosts(stackoverflowPosts);
+    stackoverflowPosts = await this.postsService.getTopPosts(5);
     const linkedinPosts = await this.linkedinService.fetchWeeklyTopPosts();
 
     // Combinar todas las fuentes

@@ -63,43 +63,33 @@ export class DraftsService {
     pipelineRunId: string,
     drafts: DraftResult[],
   ): Promise<void> {
-    for (const draft of drafts) {
-      // Buscar el canal por nombre
-      const channel = await this.prisma.channel.findFirst({
-        where: {
-          name: draft.channel as any,
+    await this.prisma.draft.deleteMany();
+    const channelNames = [...new Set(drafts.map((d) => d.channel))];
+    const channels = await this.prisma.channel.findMany({
+      where: {
+        name: {
+          in: channelNames,
         },
-      });
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
 
-      // Validar que el canal exista en la base de datos
-      if (!channel) {
+    const channelMap = new Map(
+      channels.map((channel) => [channel.name, channel.id]),
+    );
+
+    const data = drafts.map((draft) => {
+      const channelId = channelMap.get(draft.channel) || '';
+
+      if (!channelId) {
         throw new Error(`Channel not found: ${draft.channel}`);
       }
 
-      // Crear registro principal en la tabla Draft
-      const createdDraft = await this.prisma.draft.create({
-        data: {
-          pipelineRunId,
-          channelId: channel.id,
-          summary: draft.summary,
-          status: 'pending',
-        },
-      });
-
-      // Crear registro complementario para soportar revisiones con IA
-      await this.prisma.contentDraft.create({
-        data: {
-          channel: draft.channel,
-          title: `${draft.channel} draft`,
-          content: draft.summary,
-          status: 'PENDING_REVIEW',
-          aiPrompt: 'Generated automatically by weekly pipeline',
-          aiModel: 'groq',
-        },
-      });
-
       console.log(
-        `Draft created successfully: ${createdDraft.id} (${draft.channel})`,
+        `Saving ${draft.channel} draft for pipeline ${pipelineRunId}`,
       );
 
       return {
