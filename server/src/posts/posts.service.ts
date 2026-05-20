@@ -16,7 +16,7 @@ export class PostsService {
     return postsSceapeped;
   }
 
-  async getTopPosts(cantidad: number) {
+  async getTopPosts(cantidad: number): Promise<CommunityActivity[]> {
     const topPosts = this.prisma.postsScrapped.findMany({
       orderBy: {
         relevanceScore: 'desc',
@@ -26,7 +26,7 @@ export class PostsService {
     return topPosts;
   }
 
-  async savePost(posts: CommunityActivity[]) {
+  async savePosts(posts: CommunityActivity[]) {
     await this.prisma.postsScrapped.deleteMany();
 
     await this.prisma.postsScrapped.createMany({
@@ -35,7 +35,7 @@ export class PostsService {
         content: post.content,
         authorName: post.authorName,
         relevanceScore: post.relevanceScore,
-        postDate: post.post_date.toISOString(),
+        postDate: post.postDate,
         likes: post.likes,
         comments: post.comments || [],
         answers: post.answers || [],

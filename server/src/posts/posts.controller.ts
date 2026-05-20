@@ -24,6 +24,6 @@ export class PostsController {
   async savePost() {
     const postsSceapeped =
       await this.stackoverflowService.fetchWeeklyTopPosts();
-    return this.postService.savePost(postsSceapeped);
+    return this.postService.savePosts(postsSceapeped);
   }
 }

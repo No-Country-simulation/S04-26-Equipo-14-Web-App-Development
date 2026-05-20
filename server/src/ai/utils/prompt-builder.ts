@@ -10,7 +10,6 @@ ID: ${post.id}
 Author: ${post.authorName}
 Source: ${post.sourceCommunity}
 Likes: ${post.likes}
-Comments: ${post.commentsCount}
 Relevance Score: ${post.relevanceScore}
 
 Content:

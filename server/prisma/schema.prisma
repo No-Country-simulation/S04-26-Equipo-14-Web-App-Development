@@ -85,6 +85,7 @@ model Draft {
   pipelineRunId String       @map("pipeline_run_id") @db.Uuid
   channelId     String       @map("channel_id") @db.Uuid
   img           String?
+  title         String
   summary       String
   editorId      String?      @map("editor") @db.Uuid
   views         Int          @default(0)

@@ -3,6 +3,7 @@ import { StackoverflowService } from '../integrations/stackoverflow/stackoverflo
 import { AiService } from '../ai/ai.service';
 import { DraftsService } from '../drafts/drafts.service';
 import { PipelineRunsService } from '../pipeline/pipeline-runs.service';
+import { PostsService } from 'src/posts/posts.service';
 import { LinkedinService } from '../integrations/linkedin/linkedin.service';
 
 @Injectable()
@@ -15,15 +16,16 @@ export class PipelineService {
     private readonly aiService: AiService,
     private readonly draftsService: DraftsService,
     private readonly pipelineRunsService: PipelineRunsService,
+    private readonly postsService: PostsService,
   ) {}
 
   async executeWeeklyPipeline(): Promise<void> {
     this.logger.log('Starting weekly content pipeline...');
-
+    
     // 1. Obtener posts de Stack Overflow y LinkedIn
-    const stackoverflowPosts =
-      await this.stackoverflowService.fetchWeeklyTopPosts();
-
+    let posts = await this.stackoverflowService.fetchWeeklyTopPosts();
+    await this.postsService.savePosts(posts);
+    posts = await this.postsService.getTopPosts(5);
     const linkedinPosts = await this.linkedinService.fetchWeeklyTopPosts();
 
     // Combinar todas las fuentes
@@ -51,7 +53,7 @@ export class PipelineService {
 
       this.logger.log(`Analysis generated: ${analysis.title}`);
 
-      // 4. Guardar drafts en base de datos
+      // 4. Guardar drafts scraped en base de datos
       await this.draftsService.saveDrafts(pipelineRun.id, drafts);
 
       // 5. Marcar ejecución como completada
