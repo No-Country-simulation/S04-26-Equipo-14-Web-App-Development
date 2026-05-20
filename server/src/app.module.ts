@@ -5,6 +5,7 @@ import { DraftsModule } from './drafts/drafts.module';
 import { PipelineModule } from './pipeline/pipeline.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { PostsModule } from './posts/posts.module';
+import { LinkedinModule } from './integrations/linkedin/linkedin.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PostsModule } from './posts/posts.module';
     PipelineModule,
     SchedulerModule,
     PostsModule,
+    LinkedinModule,
   ],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Communities } from '@prisma/client/wasm';
+import { Communities } from '@prisma/client';
 import { CommunityActivity } from 'src/ai/interfaces/community-activity.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -35,7 +35,7 @@ export class PostsService {
         content: post.content,
         authorName: post.authorName,
         relevanceScore: post.relevanceScore,
-        postDate: post.post_date,
+        postDate: post.post_date.toISOString(),
         likes: post.likes,
         comments: post.comments || [],
         answers: post.answers || [],

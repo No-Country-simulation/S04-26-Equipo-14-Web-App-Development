@@ -1,3 +1,4 @@
+/*
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -14,9 +15,9 @@ async function bootstrap() {
 }
 
 bootstrap();
+*/
 
-/*
-para pruebas manuales de la integración, se puede usar este código para ejecutar el pipeline directamente al iniciar el servidor:
+//para pruebas manuales de la integración, se puede usar este código para ejecutar el pipeline directamente al iniciar el servidor:
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -31,4 +32,3 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
-*/
