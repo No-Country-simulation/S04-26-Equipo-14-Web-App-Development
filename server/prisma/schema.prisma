@@ -160,6 +160,7 @@ enum DraftStatus {
 
 enum Communities {
   stackoverflow
+  linkedin
 }
 
 enum ChannelTypes {

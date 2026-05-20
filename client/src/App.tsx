@@ -1,24 +1,31 @@
 import { Dashboard } from './pages/Dashboard';
 import Layout from './pages/Layout';
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import Review from './pages/Review';
+import Configuration from './pages/Configuration';
+import Publication from './pages/Publication';
 
 
 function App() {
 
+
+
   return (
     <div className="App">
 
-      <div className="flex min-h-screen bg-background">
+      <div>
 
 
         <Routes>
-          <Route path="/" element=<Layout />>
+
+          <Route path="/" element={<Layout />}>
+
+            <Route index element={<Navigate to="datacollection" replace />} />
 
             <Route path="/datacollection/*" element={<Dashboard />} />
             <Route path="/reviewpanel/*" element={<Review />} />
-            <Route path="/publications/*" element={<Review />} />
-            <Route path="/configuration/*" element={<Review />} />
+            <Route path="/publications/*" element={<Publication />} />
+            <Route path="/configuration/*" element={<Configuration/>} />
             
           </Route>
 

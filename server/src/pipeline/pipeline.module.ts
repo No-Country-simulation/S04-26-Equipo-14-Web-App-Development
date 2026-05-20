@@ -5,11 +5,18 @@ import { AiModule } from '../ai/ai.module';
 import { DraftsModule } from '../drafts/drafts.module';
 import { PipelineRunsService } from './pipeline-runs.service';
 import { PrismaModule } from '../prisma/prisma.module';
-import { PipelineController } from './pipeline.controller';
+import { LinkedinModule } from '../integrations/linkedin/linkedin.module';
 import { PostsModule } from 'src/posts/posts.module';
 
 @Module({
-  imports: [StackoverflowModule, PostsModule, AiModule, DraftsModule, PrismaModule],
+  imports: [
+    StackoverflowModule,
+    AiModule,
+    DraftsModule,
+    PrismaModule,
+    LinkedinModule,
+    PostsModule,
+  ],
   providers: [PipelineService, PipelineRunsService],
   exports: [PipelineService, PipelineRunsService],
   controllers: [PipelineController],
