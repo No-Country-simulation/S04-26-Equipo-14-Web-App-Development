@@ -7,7 +7,8 @@ export class StackoverflowMapper {
     const answers_count = raw.answer_count ?? 0;
 
     // Ranking híbrido simple
-    const relevanceScore = votes * 3 + answers_count * 5 + Math.min(views / 100, 50);
+    const relevanceScore =
+      votes * 3 + answers_count * 5 + Math.min(views / 100, 50);
 
     return {
       id: String(raw.question_id),

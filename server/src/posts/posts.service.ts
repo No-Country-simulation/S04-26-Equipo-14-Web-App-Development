@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Communities } from '@prisma/client/wasm';
+import { Communities } from '@prisma/client';
 import { CommunityActivity } from 'src/ai/interfaces/community-activity.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
 
