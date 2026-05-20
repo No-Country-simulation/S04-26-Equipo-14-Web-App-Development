@@ -66,7 +66,7 @@ export class PipelineService {
         // Agregar sourceCommunity a cada draft
         const draftsWithSource = drafts.map((draft) => ({
           ...draft,
-          sourceCommunity: 'stackoverflow',
+          sourceCommunity: 'stackoverflow' as const,
         }));
 
         // Guardar drafts
@@ -91,7 +91,7 @@ export class PipelineService {
         // Agregar sourceCommunity a cada draft
         const draftsWithSource = drafts.map((draft) => ({
           ...draft,
-          sourceCommunity: 'linkedin',
+          sourceCommunity: 'linkedin' as const,
         }));
 
         // Guardar drafts

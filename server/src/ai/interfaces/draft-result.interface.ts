@@ -15,6 +15,7 @@ export interface DraftResult {
   titulo: string;
   summary: string;
   imagePrompt?: string;
+  sourceCommunity?: 'stackoverflow' | 'linkedin';
 }
 
 export interface GeneratedDraft {

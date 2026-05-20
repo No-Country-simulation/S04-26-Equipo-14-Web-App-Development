@@ -63,7 +63,7 @@ export class DraftsService {
     pipelineRunId: string,
     drafts: DraftResult[],
   ): Promise<void> {
-    await this.prisma.draft.deleteMany();
+    //await this.prisma.draft.deleteMany();
     const channelNames = [...new Set(drafts.map((d) => d.channel))];
     const channels = await this.prisma.channel.findMany({
       where: {
@@ -97,6 +97,7 @@ export class DraftsService {
         channelId,
         summary: draft.summary,
         title: draft.titulo,
+        sourceCommunity: draft.sourceCommunity, //
       };
     });
 
@@ -113,6 +114,7 @@ export class DraftsService {
         status: 'PENDING_REVIEW',
         aiPrompt: 'Generated automatically by weekly pipeline',
         aiModel: 'groq',
+        sourceCommunity: draft.sourceCommunity,
       };
     });
 
