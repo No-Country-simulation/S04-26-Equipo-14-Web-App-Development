@@ -81,22 +81,23 @@ model PostSelection {
 }
 
 model Draft {
-  id            String       @id @default(uuid()) @db.Uuid
-  pipelineRunId String       @map("pipeline_run_id") @db.Uuid
-  channelId     String       @map("channel_id") @db.Uuid
-  img           String?
-  title         String
-  summary       String
-  editorId      String?      @map("editor") @db.Uuid
-  views         Int          @default(0)
-  editorNotes   String?      @map("editor_notes")
-  reviewedAt    DateTime?    @map("reviewed_at")
-  publishedAt   DateTime?    @map("published_at")
-  status        DraftStatus  @default(pending)
-  channel       Channel      @relation(fields: [channelId], references: [id])
-  editor        User?        @relation("DraftEditor", fields: [editorId], references: [id])
-  pipelineRun   PipelineRun  @relation(fields: [pipelineRunId], references: [id])
-  publications  Publication?
+  id              String       @id @default(uuid()) @db.Uuid
+  pipelineRunId   String       @map("pipeline_run_id") @db.Uuid
+  channelId       String       @map("channel_id") @db.Uuid
+  img             String?
+  title           String
+  summary         String
+  editorId        String?      @map("editor") @db.Uuid
+  views           Int          @default(0)
+  editorNotes     String?      @map("editor_notes")
+  reviewedAt      DateTime?    @map("reviewed_at")
+  publishedAt     DateTime?    @map("published_at")
+  status          DraftStatus  @default(pending)
+  channel         Channel      @relation(fields: [channelId], references: [id])
+  editor          User?        @relation("DraftEditor", fields: [editorId], references: [id])
+  pipelineRun     PipelineRun  @relation(fields: [pipelineRunId], references: [id])
+  publications    Publication?
+  sourceCommunity Communities? @map("source_community")
 
   @@map("drafts")
 }
@@ -119,15 +120,16 @@ model Publication {
 }
 
 model ContentDraft {
-  id        String   @id @default(cuid())
-  channel   String // newsletter, linkedin, twitter
-  title     String?
-  content   String   @db.Text
-  status    String   @default("PENDING_REVIEW")
-  aiPrompt  String?  @db.Text
-  aiModel   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String       @id @default(cuid())
+  channel         String // newsletter, linkedin, twitter
+  title           String?
+  content         String       @db.Text
+  status          String       @default("PENDING_REVIEW")
+  aiPrompt        String?      @db.Text
+  aiModel         String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  sourceCommunity Communities? @map("source_community")
 
   revisions ContentRevision[]
 }
