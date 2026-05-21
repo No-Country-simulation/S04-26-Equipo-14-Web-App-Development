@@ -35,7 +35,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const pipelineService = app.get(PipelineService);
-  await pipelineService.executeWeeklyPipeline();
+  // await pipelineService.executeWeeklyPipeline();
 
   await app.listen(process.env.PORT ?? 3000);
 }

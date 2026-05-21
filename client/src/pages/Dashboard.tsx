@@ -1,44 +1,40 @@
-import { useState, useEffect } from 'react';
-import { postService } from '../services/postService';
+import { useEffect, useState } from 'react';
+import { usePostScrapped } from '../hooks/usePost';
 import { PostList } from '../components/PostList';
 import { SearchBar } from '../components/SearchBar';
 import { DashboardStats } from '../components/DashboardStats';
-// import Sidebar from '../components/Sidebar';
+
+
 import TopBar from '../components/TopBar';
-import type { Post } from '../types/Post';
+import type { PostsDashboard } from '../types/Post.types';
 
 export const Dashboard = () => {
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+
+  const { posts, loading } = usePostScrapped();
+
+  // const [allPosts, setAllPosts] = useState<PostsDashboard[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<PostsDashboard[]>([]);
+  // const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const data = await postService.getPosts();
-        setAllPosts(data);
-        setFilteredPosts(data);
-      } catch (error) {
-        console.error("Error cargando posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPosts();
-  }, []);
+    setFilteredPosts(posts)
+  }, [posts])
 
+  
   const handleSearch = (query: string) => {
-    const results = allPosts.filter(post =>
+    const results = posts.filter(post =>
       post.title.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredPosts(results);
   };
 
   const totalPosts = filteredPosts.length;
-  const totalVotes = filteredPosts.reduce((acc, post) => acc + post.votes, 0);
-  const totalReplies = filteredPosts.reduce((acc, post) => acc + post.replies, 0);
+  const totalVotes = filteredPosts.reduce((acc, post) => acc + post.likes, 0);
+  const totalReplies = filteredPosts.reduce((acc, post) => acc + post.likes, 0);
 
   // Pantalla de carga con estilo Kinetic
+
   if (loading) return (
     <div className="flex h-screen items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-4">
@@ -65,6 +61,7 @@ export const Dashboard = () => {
           />
 
           {/* 4. Área de Contenido Principal */}
+
           <div className="flex flex-col gap-6">
             <SearchBar onSearch={handleSearch} />
 

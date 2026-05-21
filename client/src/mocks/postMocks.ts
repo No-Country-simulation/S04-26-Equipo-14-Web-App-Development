@@ -1,5 +1,5 @@
   // src/components/mocks/postMocks.ts
-     import type { Post } from '../types/Post';
+     import type { Post } from '../types/Post.types';
     
      export const MOCK_POSTS: Post[] = [
        {
