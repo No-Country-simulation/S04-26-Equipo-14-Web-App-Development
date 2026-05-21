@@ -105,7 +105,7 @@ model Publication {
   id            String            @id @default(uuid()) @db.Uuid
   draftId       String            @unique @map("draft_id") @db.Uuid
   channelId     String            @map("channel_id") @db.Uuid
-  publishedById String            @map("published_by") @db.Uuid
+  publishedById String?            @map("published_by") @db.Uuid
   pipelineRunId String            @map("pipeline_run_id") @db.Uuid
   method        PublicationMethod
   result        PublicationResult
@@ -113,7 +113,7 @@ model Publication {
   channel       Channel           @relation(fields: [channelId], references: [id])
   draft         Draft             @relation(fields: [draftId], references: [id])
   pipelineRun   PipelineRun       @relation(fields: [pipelineRunId], references: [id])
-  publishedBy   User              @relation(fields: [publishedById], references: [id])
+  publishedBy   User?              @relation(fields: [publishedById], references: [id])
 
   @@map("publications")
 }
