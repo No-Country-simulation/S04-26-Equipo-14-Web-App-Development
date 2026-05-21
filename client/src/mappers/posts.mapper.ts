@@ -8,7 +8,7 @@ export function toPostsDashboard(post: PostScrapped): PostsDashboard {
         id: post.id,
         title: post.title,
         likes: post.likes,
-        author: post.author,
+        author: post.authorName,
         replies: post.comments,
         relevanceScore: post.relevanceScore
     }

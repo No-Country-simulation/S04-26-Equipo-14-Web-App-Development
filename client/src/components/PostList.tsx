@@ -1,5 +1,4 @@
 import { PostCard } from './PostCard';
-// import type { Post } from '../types/Post.types';
 import type { PostsDashboard } from '../types/Post.types';
 
 interface PostListProps {
@@ -8,8 +7,6 @@ interface PostListProps {
 }
 
 export const PostList = ({ posts }: PostListProps) => {
-
-  console.log("aca es lists", posts);
 
   if (posts.length === 0) {
     return (

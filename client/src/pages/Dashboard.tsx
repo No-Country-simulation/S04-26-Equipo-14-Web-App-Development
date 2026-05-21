@@ -1,48 +1,27 @@
-import { useState } from 'react';
-// import { postService } from '../services/postService';
-
+import { useEffect, useState } from 'react';
 import { usePostScrapped } from '../hooks/usePost';
-
 import { PostList } from '../components/PostList';
 import { SearchBar } from '../components/SearchBar';
 import { DashboardStats } from '../components/DashboardStats';
 
-// import Sidebar from '../components/Sidebar';
+
 import TopBar from '../components/TopBar';
 import type { PostsDashboard } from '../types/Post.types';
 
 export const Dashboard = () => {
 
-  const { posts, loading} = usePostScrapped();
+  const { posts, loading } = usePostScrapped();
 
-  console.log(posts);
-
-  // const [allPosts, setAllPosts] = useState<Post[]>([]);
+  // const [allPosts, setAllPosts] = useState<PostsDashboard[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<PostsDashboard[]>([]);
   // const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const data = await postService.getPosts();
-  //       setAllPosts(data);
-  //       setFilteredPosts(data);
-  //     } catch (error) {
-  //       console.error("Error cargando posts:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchPosts();
-  // }, []);
 
-  // const handleSearch = (query: string) => {
-  //   const results = allPosts.filter(post =>
-  //     post.title.toLowerCase().includes(query.toLowerCase())
-  //   );
-  //   setFilteredPosts(results);
-  // };
+  useEffect(() => {
+    setFilteredPosts(posts)
+  }, [posts])
 
+  
   const handleSearch = (query: string) => {
     const results = posts.filter(post =>
       post.title.toLowerCase().includes(query.toLowerCase())
@@ -97,7 +76,7 @@ export const Dashboard = () => {
                 </span>
               </header>
 
-              <PostList posts={posts} />
+              <PostList posts={filteredPosts} />
             </div>
           </div>
         </div>

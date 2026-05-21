@@ -4,6 +4,7 @@ import type { PostScrapped, PostsDashboard } from "../types/Post.types";
 
 
 export function usePostScrapped() {
+    
     const [posts, setPosts] = useState<PostsDashboard[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null)

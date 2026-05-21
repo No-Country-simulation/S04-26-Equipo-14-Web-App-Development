@@ -14,7 +14,7 @@ export interface PostScrapped {
    id: string
    title: string
    content: string
-   author: string
+   authorName: string
    img: string
    relevanceScore: number
    likes: number
